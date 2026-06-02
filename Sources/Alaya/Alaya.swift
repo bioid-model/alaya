@@ -1,31 +1,19 @@
 import Foundation
+@_exported import BioidCore
 
 /// Alaya — the storehouse layer of a `bioid`.
 ///
-/// `Alaya` is the long-lived daemon process. It is the substrate that
-/// gives the bioid continuity of self: it starts before any sensory
-/// pathway opens, outlives every transient cognitive event, and only
-/// stops when the host machine stops.
+/// This module is the *library* half of the ALAYA slot. It provides
+/// concrete `Substrate` implementations and the BIOID control loop, and
+/// it imports only `BioidCore`. It does not import `Vijna`, `Manas`, or
+/// `Manovijna`: those names are forbidden inside this target so that
+/// ALAYA depends only on the neutral protocols, never on a particular
+/// peer layer's identity.
 ///
-/// In the eight-consciousness mapping used across the bioid family of
-/// projects, `Alaya` corresponds to **第八阿頼耶識**: the deepest,
-/// always-present storehouse from which the more transient layers
-/// (manas, vijñāna, citta, the surface language model) are repeatedly
-/// instantiated.
-///
-/// Responsibilities held by `Alaya`:
-/// - hosting the deep, persistent memory of the bioid;
-/// - wiring the perception (`vijna`), working context (`citta`),
-///   self-model (`manas`), and surface language (`llm`) layers
-///   together at process start;
-/// - keeping the daemon alive across transient cognitive events.
-///
-/// Other layers are independent packages, brought in as siblings
-/// inside the `bioid` umbrella repository.
-@main
-struct Alaya {
-    static func main() async {
-        // Layer wiring will live here once the sibling packages
-        // (vijna, citta, manas, llm) are linked in.
-    }
-}
+/// The composition root — where concrete peer layers are wired
+/// together — lives in the sibling `alayad` executable target. That
+/// is the only place in the repository where `Vijna` / `Manas` /
+/// `Manovijna` appear next to `Alaya`. This is the bootstrap exception:
+/// a single file that knows the names of the layers, so every other
+/// file does not have to.
+public enum Alaya {}
